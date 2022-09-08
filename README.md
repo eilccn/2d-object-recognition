@@ -10,7 +10,7 @@
 
 
 ## Video Demo>
-<video src='/video_demo/project3_video.mp4' alt='video demo'>
+[<img src="/video_demo/demo-image.png" width="50%">](https://drive.google.com/file/d/1pK1d6vgmeVoRCaKcsgjpci0UV_i4_DI6/view?usp=sharing)
 
 
 ## Khoury Wiki
