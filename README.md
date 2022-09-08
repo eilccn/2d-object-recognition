@@ -33,7 +33,7 @@ k = classify by using k nearest neighbor (pluarlity vote)
 y = classify by using k nearest neighbor (sums)
 ```
 
-## Suggested Steps for 2D Object Recognition: Feature Computation, Training System, and Classification
+## Feature Computation, Training System, and Classification
 ### Feature Computation
 
 ### Training System
