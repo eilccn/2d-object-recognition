@@ -23,7 +23,7 @@ m = morphological filtering (clean up thresholded image)
 c = connected components region segmentation
 
 feature computation:
-f = feature computation
+f = computes 5 features, the first 3 of which are central moment values -> {µ11, µ20, µ02, percent filled of the oriented bounding box, aspect ratio of the oriented bounding box}
 
 training mode:
 n = compute and extract 5 features from the object and record data in "features.csv" file 
@@ -36,14 +36,40 @@ k = classify by using k nearest neighbor (pluarlity vote)
 ## Feature Computation, Training System, and Classification
 ### Feature Computation
 
+Connected components regions showing the major and minor axes of least central moments and the oriented bounding box. 
+
+The built-in OpenCV function cv::moments was used in order to compute the moment feature values for each object. Moments characterize the shape and properties of each region and the standard moments are computed as Mpq = Σ xpyq where the sum of all pixels in a region are xpyq. These are the transform coordinates where the origin is at (0,0). After we compute the standard moments, we can obtain a region's area (M00) and compute a region's centroid where x = M10/M00 and y =M01/M00. The central moments can then be computed relative to the centroid of a region: µpq = Σ (x - x̄ )p(y - ȳ )q . With the built-in cv::moments function, we can simply call the central moments, such as µ11, µ20, and µ02. Central moments are translation invariant but not rotation invariant, but we can use the central moments to calculate the rotation invariant orientation of major axis of a region. The orientation is calculated as follows: orientation = 0.5*atan2(2*µ11, (µ20 - µ02)). The major axis is (cosα, sinα) and the minor axis is (-sinα, cosα). To get new x and y values in a rotated coordinate system we can calculate x' and y' as follows: x' = (x- x̄)cosα + (y - ȳ)sinα and y' = (x- x̄)sinα + (y - ȳ)cosα. With the rotation invariant (x', y') coordinates, we can then obtain the oriented bounding box points by finding the max/min for x' an y'. 
+
+The (5) features chosen to be extracted for each object include three central moment values (µ11, µ20, and µ02), the percent filled of the oriented bounding box, and the aspect ratio of the oriented bounding box. These specific features are pushed into a feature vector that is called in as a parameter to this feature computation function. The extracted feature vector is then used in the training mode outlined in task 5. 
+
 ### Training System
 
+Upon a keypress, 5 features: {µ11, µ20, µ02, percent filled of the oriented bounding box, aspect ratio of the oriented bounding box} will be extracted from an object via the features function described in task 4. The user will then be prompted to assign a label to the object by entering a label in the command line. The object's feature vector and its label will then be written together into a csv file that is passed in as a command line argument. The user can then replace the object with a new object and press the keypress again in order to extract the new object's feature vector, assign a label to it, then push the paired information into the csv file. The user can continue adding as many objects as they want to the csv file or database by repeating the process of replacing the object and pressing the keypress. The user may decide to extract multiple feature vectors from the same object by rotating the object with each keypress, and this is advised especially for the object classification via the KNN functionality outlined in task 7. 
+
 ### Classification
+
+#### Unknown Object Classification via Scaled Euclidean Distance
+The results of classifying 10 unique objects. An unknown object's feature vector is compared with the feature vectors of the known objects in the database through the use of a scaled Euclidean distance metric. The unknown object is identified according to the closest matching feature vector in the object DB (nearest-neighbor recognition). The matched label of the object is displayed on the middle left of the video output.
+
+#### Unknown Object Classification via KNN
+While the classifying method in task 6 used a nearest neighbor algorithm that returns the object with the least distance from the unknown object (essentially K=1), the K Nearest Neighbor algorithm looks at K>1 nearest neighbors of each class. With KNN, an object is classified by a plurality vote of its neighbors, where the object is matched to the class that appears in greater frequency among its K nearest neighbors. I mentioned that the nearest neighbor algorithm is essentially the same as KNN with K=1 because in this case an object is matched to the class of the single nearest neighbor.
+
+KNN may alternatively be implemented (not via a plurality vote of its neighbors), but by obtaining K nearest neighbors of each object class, computing the sum of distances of each class, then matching the unknown object to the class with the smallest distance sum. In this program, however, it should be noted that the plurality vote of K nearest neighbors was implemented. 
 
 ## Video Demo
 [<img src="/video_demo/demo-image.png" width="50%">](https://drive.google.com/file/d/1pK1d6vgmeVoRCaKcsgjpci0UV_i4_DI6/view?usp=sharing)
 
-## Wiki Report
+## Results and Discussion
+
+### Confusion Matrix
+Row = Classified
+Column = Truth
+
+### Discussion
+As seen in the confusion matrix above, aside from a couple outliers, the program ended up being fairly accurate. The flower was mistaken for a key 1/5 times, the key was mistaken for a flower 1/5 times, the pin was mistaken for a key 1/5 times, and the steps was mistaken for a star 2/5 times. These mismatches make sense because the objects that were mistaken for each other are very similar in size and shape. The pin, on the other hand, is smaller in area than the key by about half, but it often cast a long shadow that was taken into account when extracting its features. As a result, for more accurate results, I would need a more controlled lighting situation. Also, with more than the 3 feature sets I extracted for each object in this particular trial, I would be able to obtain more reliable results.
+
+
+###### Wiki Report
 https://wiki.khoury.northeastern.edu/x/1qN5Bg
 
 
