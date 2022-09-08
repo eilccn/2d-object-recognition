@@ -9,11 +9,11 @@
 5. Note: Every time you need to rebuild the program, the csv file needs to be manually deleted and recreated for it to build correctly.
 
 
-## Video Demo>
+## Video Demo
 [<img src="/video_demo/demo-image.png" width="50%">](https://drive.google.com/file/d/1pK1d6vgmeVoRCaKcsgjpci0UV_i4_DI6/view?usp=sharing)
 
 
-## Khoury Wiki
+## Wiki Report
 https://wiki.khoury.northeastern.edu/x/1qN5Bg
 
 
