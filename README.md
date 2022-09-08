@@ -16,7 +16,7 @@ q = quit
 s = save .png of image
 spacebar = original image
 
-for simply observing specific features that will be extracted:
+for simply displaying methodologies to be used in feature extraction:
 t = thresholding
 m = morphological filtering
 c = connected components region segmentation
