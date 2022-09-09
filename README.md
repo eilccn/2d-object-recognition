@@ -3,6 +3,7 @@
 ## Project Description
 This project aims to recognize 2D objects in real-time in a translation, scale, and rotation invariant manner. It uses thresholding, morphological filtering, region segmentation, and moment computations in order to extract identifying features from each object. The translation, scale, and rotation invariant features are then extracted into a database (csv file) within a training mode that can be accessed via a keypress (see "Keypress Definitions" below). The data extracted from the objects in the training mode then can be used to identify unknown objects by comparing the unknown object features against the features for various known objects documented in the database. ***The 5 features extracted in this specific program are 3 central moment values {µ11, µ20, µ02}, percent filled of the oriented bounding box, and the aspect ratio of the oriented bounding box.*** The extracted features are then used to compute distances between an unknown object and the known database objects via a distance metric, such as scaled Euclidean distance. The K Nearest Neighbor algorithm can then further be applied in order to more accurately classify unknown objects. When classifying unknown objects in real-time, the label or name of the object's closest match is displayed on the video output. 
 
+
 ## Instructions for running executables:
 1. Place all .cpp and .h files along with a CMakeLists.txt file into a directory (i.e. called "project")
 2. Open "project" in Visual Studio Code
@@ -48,6 +49,7 @@ This function cleans up the thresholded binary image by using OpenCV's built-in 
 ### Connected Components Region Segmentation: Keypress 'c'
 This function computes connected components using OpenCV's built-in function, ```cv::connectedComponentsWithStats``` and displays the detected segmented regions by color.
 
+
 ## Feature Computation, Training System, and Classification
 ### Feature Computation: Keypress 'f'
 
@@ -71,8 +73,10 @@ While the euclidean distance classifying method used a nearest neighbor algorith
 
 KNN may alternatively be implemented (not via a plurality vote of its neighbors), but by obtaining K nearest neighbors of each object class, computing the sum of distances of each class, then matching the unknown object to the class with the smallest distance sum. In this program, however, it should be noted that the plurality vote of K nearest neighbors was implemented. 
 
+
 ## Video Demo
 [<img src="/video_demo/demo-image.png" width="50%">](https://drive.google.com/file/d/1pK1d6vgmeVoRCaKcsgjpci0UV_i4_DI6/view?usp=sharing)
+
 
 ## Results and Discussion
 
