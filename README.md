@@ -24,7 +24,9 @@ m = morphological filtering (clean up thresholded image)
 c = connected components region segmentation
 
 feature computation:
-f = computes 5 features, the first 3 of which are central moment values -> {µ11, µ20, µ02, percent filled of the oriented bounding box, aspect ratio of the oriented bounding box}
+f = 
+* displays the major and minor axes and the oriented bounding box in real time on the video output 
+* computes 5 features, the first 3 of which are central moment values -> {µ11, µ20, µ02, percent filled of the oriented bounding box, aspect ratio of the oriented bounding box}
 
 training mode:
 n = compute and extract 5 features from the object and record data in "features.csv" file 
@@ -41,9 +43,10 @@ k = classify by using k nearest neighbor (pluarlity vote)
 This function separates the object from the background. 
 
 #### Morphological Filtering: Keypress 'm'
+This function cleans up the thresholded binary image by using built-in OpenCV growing and shrinking functions. 
 
 ### Connected Components Region Segmentation: Keypress 'c'
-
+This function computes connected components using OpenCV's built-in function, ```cv::connectedComponentsWithStats``` and displays the detected segmented regions by color.
 
 ## Feature Computation, Training System, and Classification
 ### Feature Computation: Keypress 'f'
