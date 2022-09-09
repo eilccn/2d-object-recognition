@@ -1,7 +1,7 @@
 # Project 3: Real-time 2D Object Recognition
 
 ## Project Description
-This project aims to recognize 2D objects in real-time in a translation, scale, and rotation invariant manner. It uses thresholding, morphological filtering, region segmentation, and moment computations in order to extract identifying features from each object. The translation, scale, and rotation invariant features are then extracted into a database (csv file) within a training mode that can be accessed via a keypress (see "Keypress Definitions" below). The data extracted from the objects in the training mode then can be used to identify unknown objects by comparing the unknown object features against the features for various known objects documented in the database. The features extracted in this specific program are 3 central moment values, percent filled of the oriented bounding box, and the aspect ratio of the oriented bounding box. The extracted features are then used to compute distances between an unknown object and the known database objects via a distance metric, such as scaled Euclidean distance. The K Nearest Neighbor algorithm can then further be applied in order to more accurately classify unknown objects. When classifying unknown objects in real-time, the label or name of the object's closest match is displayed on the video output. 
+This project aims to recognize 2D objects in real-time in a translation, scale, and rotation invariant manner. It uses thresholding, morphological filtering, region segmentation, and moment computations in order to extract identifying features from each object. The translation, scale, and rotation invariant features are then extracted into a database (csv file) within a training mode that can be accessed via a keypress (see "Keypress Definitions" below). The data extracted from the objects in the training mode then can be used to identify unknown objects by comparing the unknown object features against the features for various known objects documented in the database. ***The 5 features extracted in this specific program are 3 central moment values, percent filled of the oriented bounding box, and the aspect ratio of the oriented bounding box.*** The extracted features are then used to compute distances between an unknown object and the known database objects via a distance metric, such as scaled Euclidean distance. The K Nearest Neighbor algorithm can then further be applied in order to more accurately classify unknown objects. When classifying unknown objects in real-time, the label or name of the object's closest match is displayed on the video output. 
 
 ## Instructions for running executables:
 1. Place all .cpp and .h files along with a CMakeLists.txt file into a directory (i.e. called "project")
@@ -18,7 +18,7 @@ q = quit
 s = save .png of image
 spacebar = original image
 
-for simply displaying methodologies to be used in feature extraction:
+image clean-up and region segmentation required prior to feature extraction:
 t = thresholding
 m = morphological filtering (clean up thresholded image)
 c = connected components region segmentation
@@ -34,7 +34,16 @@ d = classify by computing the scaled euclidean distance
 k = classify by using k nearest neighbor (pluarlity vote)
 ```
 
-## Features, Feature Computation, Training System, and Classification
+## Image Clean-Up and Region Segmentation
+
+### Thresholding
+
+### Morphological Filtering
+
+### Connected Components Region Segmentation
+
+
+## Feature Computation, Training System, and Classification
 ### Feature Computation: Keypress 'f'
 
 Upon pressing ```f```, you should be able to observe the connected components regions showing the major and minor axes of least central moments and the oriented bounding box. 
@@ -47,7 +56,7 @@ The 5 features chosen to be extracted for each object include **three central mo
 
 Upon a keypress, 5 features: ```{µ11, µ20, µ02, percent filled of the oriented bounding box, aspect ratio of the oriented bounding box}``` will be extracted from an object via the features function described in **"Feature Computation"** above. The user will then be prompted to assign a label to the object by entering a label in the command line. The object's feature vector and its label will then be written together into a csv file that is passed in as a command line argument. The user can then replace the object with a new object and press the keypress again in order to extract the new object's feature vector, assign a label to it, then push the paired information into the csv file. The user can continue adding as many objects as they want to the csv file or database by repeating the process of replacing the object and pressing the keypress. The user may decide to extract multiple feature vectors from the same object by rotating the object with each keypress, and this is advised especially for the object classification via the KNN functionality outlined under **"Classification"** below. **NOTE: It is important that the objects do not change in scale, and it is strongly advised to create a stable video capture set-up in order to ensure more accurate classification results. Please refer to the **"Video Capture"** section for more detailed suggestions.**
 
-### Classification: Keypress 'd' and 'k'
+### Classification: Keypresses 'd' and 'k'
 
 #### Unknown Object Classification via Scaled Euclidean Distance: Keypress 'd'
 An unknown object's feature vector is compared with the feature vectors of the known objects in the database through the use of a scaled Euclidean distance metric. The unknown object is identified according to the closest matching feature vector in the object DB (nearest-neighbor recognition). The matched label of the object is displayed on the middle left of the video output.
