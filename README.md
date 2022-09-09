@@ -42,9 +42,9 @@ k = classify by using k nearest neighbor (pluarlity vote)
 * Use a phone tripod or DIY your own set-up to keep your phone in place while you extract object features
 * It is important that your video capture device does not move throughout the entire training process 
 
-## Image Clean-Up and Region Segmentation
+## Image Thresholding and Region Segmentation
 
-### Image Clean-Up
+### Image Thresholding
 #### Thresholding: Keypress 't'
 This function separates the object from the background. By setting pixels in the image black if the color-channel value is greater than a designated threshold or white if the color-channel falls below the designated threshold.
 | Original | Thresholding |
@@ -88,13 +88,15 @@ An unknown object's feature vector is compared with the feature vectors of the k
 
 | Original | Classification |
 |---|---|
-| <img src="/readme-images/camera-og.png" width=50%> | <img src="/readme-images/camera-classify.png" width=50%> |
+| <img src="/readme-images/camera-og.png" width=100%> | <img src="/readme-images/camera-classify.png" width=100%> |
 
 #### Unknown Object Classification via KNN: Keypress 'k'
 While the euclidean distance classifying method used a nearest neighbor algorithm that returns the object with the least distance from the unknown object (essentially K=1), the K Nearest Neighbor algorithm looks at K>1 nearest neighbors of each class. With KNN, an object is classified by a plurality vote of its neighbors, where the object is matched to the class that appears in greater frequency among its K nearest neighbors. The nearest neighbor algorithm is essentially the same as KNN with K=1 because in this case an object is matched to the class of the single nearest neighbor.
 
 KNN may alternatively be implemented (not via a plurality vote of its neighbors), but by obtaining K nearest neighbors of each object class, computing the sum of distances of each class, then matching the unknown object to the class with the smallest distance sum. In this program, however, it should be noted that the plurality vote of K nearest neighbors was implemented. 
 
+For this method, **objects are classified in the command line** and users define the value of K that will be used to classify each object.
+<img src="/readme-images/k-means.png" width="50%">
 
 ## Video Demo
 [<img src="/video_demo/demo-image.png" width="50%">]
