@@ -49,19 +49,19 @@ k = classify by using k nearest neighbor (pluarlity vote)
 This function separates the object from the background. By setting pixels in the image black if the color-channel value is greater than a designated threshold or white if the color-channel falls below the designated threshold.
 | Original | Thresholding |
 |---|---|
-| <img src="/readme-images/pencil-og.png" width=50%> | <img src="/readme-images/pencil-thresh.png" width=50%> |
+| <img src="/readme-images/pencil-og.png" width=100%> | <img src="/readme-images/pencil-thresh.png" width=100%> |
 
 #### Morphological Filtering: Keypress 'm'
 This function cleans up the thresholded binary image by using OpenCV's built-in ```cv::morphologyEx```, which executes growing and shrinking (or opening and closing morphological filtering). 
 | Thresholding | Morphological Filtering |
 |---|---|
-| <img src="/readme-images/pencil-thresh.png" width=50%> | <img src="/readme-images/pencil-morph.png" width=50%> |
+| <img src="/readme-images/pencil-thresh.png" width=100%> | <img src="/readme-images/pencil-morph.png" width=100%> |
 
 ### Connected Components Region Segmentation: Keypress 'c'
 This function computes connected components using OpenCV's built-in function, ```cv::connectedComponentsWithStats``` and displays the detected segmented regions by color.
 | Pencil Region | Region Segmentation |
 |---|---|
-| <img src="/readme-images/pencil-cc.png" width=50%> | <img src="/readme-images/cc.png" width=50%> |
+| <img src="/readme-images/pencil-cc.png" width=100%> | <img src="/readme-images/cc.png" width=100%> |
 
 
 ## Feature Computation, Training System, and Classification
