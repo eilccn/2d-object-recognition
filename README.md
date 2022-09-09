@@ -41,6 +41,8 @@ k = classify by using k nearest neighbor (pluarlity vote)
 * Install the EpocCam app to your mobile device in order to use it as a webcam 
 * Use a phone tripod or DIY your own set-up to keep your phone in place while you extract object features
 * It is important that your video capture device does not move throughout the entire training process 
+* Good lighting
+* Noiseless background
 
 ## Image Thresholding and Region Segmentation
 
