@@ -10,6 +10,7 @@ This project aims to recognize 2D objects in real-time in a translation, scale, 
 4. cd into the build folder
 5. Run the program by first entering "./project" followed by the path to a newly created empty csv file that **must be called "features.csv"**
 * **Note:** Every time you need to rebuild the program, the csv file needs to be manually deleted and recreated for it to build correctly.
+* Please see the requirements.txt file for necessary plug-ins
 
 ### Keypress Definitions:
 ```
@@ -34,25 +35,25 @@ k = classify by using k nearest neighbor (pluarlity vote)
 ```
 
 ## Feature Computation, Training System, and Classification
-### Feature Computation
+### Feature Computation: Keypress 'f'
 
-Connected components regions showing the major and minor axes of least central moments and the oriented bounding box. 
+Upon pressing 'f', you should be able to observe the connected components regions showing the major and minor axes of least central moments and the oriented bounding box. 
 
-The built-in OpenCV function cv::moments was used in order to compute the moment feature values for each object. Moments characterize the shape and properties of each region and the standard moments are computed as Mpq = Σ xpyq where the sum of all pixels in a region are xpyq. These are the transform coordinates where the origin is at (0,0). After we compute the standard moments, we can obtain a region's area (M00) and compute a region's centroid where x = M10/M00 and y =M01/M00. The central moments can then be computed relative to the centroid of a region: µpq = Σ (x - x̄ )p(y - ȳ )q . With the built-in cv::moments function, we can simply call the central moments, such as µ11, µ20, and µ02. Central moments are translation invariant but not rotation invariant, but we can use the central moments to calculate the rotation invariant orientation of major axis of a region. The orientation is calculated as follows: orientation = 0.5*atan2(2*µ11, (µ20 - µ02)). The major axis is (cosα, sinα) and the minor axis is (-sinα, cosα). To get new x and y values in a rotated coordinate system we can calculate x' and y' as follows: x' = (x- x̄)cosα + (y - ȳ)sinα and y' = (x- x̄)sinα + (y - ȳ)cosα. With the rotation invariant (x', y') coordinates, we can then obtain the oriented bounding box points by finding the max/min for x' an y'. 
+The built-in OpenCV function cv::moments was used in order to compute the 3 central moment feature values for each object. Moments characterize the shape and properties of each region and the standard moments are computed as Mpq = Σ xpyq where the sum of all pixels in a region are xpyq. These are the transform coordinates where the origin is at (0,0). After we compute the standard moments, we can obtain a region's area (M00) and compute a region's centroid where ```x = M10/M00 and y =M01/M00```. The central moments can then be computed relative to the centroid of a region: ```µpq = Σ (x - x̄ )p(y - ȳ )q``` . With the built-in cv::moments function, we can simply call the central moments, such as µ11, µ20, and µ02. Central moments are translation invariant but not rotation invariant, but we can use the central moments to calculate the rotation invariant orientation of major axis of a region. The orientation is calculated as follows: ```orientation = 0.5*atan2(2*µ11, (µ20 - µ02))```. The major axis is ```(cosα, sinα)``` and the minor axis is ```(-sinα, cosα)```. To get new x and y values in a rotated coordinate system we can calculate ```x' and y'``` as follows: ```x' = (x- x̄)cosα + (y - ȳ)sinα``` and ```y' = (x- x̄)sinα + (y - ȳ)cosα```. With the rotation invariant ```(x', y')``` coordinates, we can then obtain the oriented bounding box points by finding the max/min for x' an y'. 
 
-The (5) features chosen to be extracted for each object include three central moment values (µ11, µ20, and µ02), the percent filled of the oriented bounding box, and the aspect ratio of the oriented bounding box. These specific features are pushed into a feature vector that is called in as a parameter to this feature computation function. The extracted feature vector is then used in the training mode outlined in task 5. 
+The (5) features chosen to be extracted for each object include three central moment values ```(µ11, µ20, and µ02)```, the percent filled of the oriented bounding box, and the aspect ratio of the oriented bounding box. These specific features are pushed into a feature vector that is called in as a parameter to this feature computation function. The extracted feature vector is then used in the training mode outlined in task 5. 
 
-### Training System
+### Training System: Keypress 'n'
 
 Upon a keypress, 5 features: {µ11, µ20, µ02, percent filled of the oriented bounding box, aspect ratio of the oriented bounding box} will be extracted from an object via the features function described in task 4. The user will then be prompted to assign a label to the object by entering a label in the command line. The object's feature vector and its label will then be written together into a csv file that is passed in as a command line argument. The user can then replace the object with a new object and press the keypress again in order to extract the new object's feature vector, assign a label to it, then push the paired information into the csv file. The user can continue adding as many objects as they want to the csv file or database by repeating the process of replacing the object and pressing the keypress. The user may decide to extract multiple feature vectors from the same object by rotating the object with each keypress, and this is advised especially for the object classification via the KNN functionality outlined in task 7. 
 
-### Classification
+### Classification: Keypress 'd' and 'k'
 
-#### Unknown Object Classification via Scaled Euclidean Distance
+#### Unknown Object Classification via Scaled Euclidean Distance: Keypress 'd'
 The results of classifying 10 unique objects. An unknown object's feature vector is compared with the feature vectors of the known objects in the database through the use of a scaled Euclidean distance metric. The unknown object is identified according to the closest matching feature vector in the object DB (nearest-neighbor recognition). The matched label of the object is displayed on the middle left of the video output.
 
-#### Unknown Object Classification via KNN
-While the classifying method in task 6 used a nearest neighbor algorithm that returns the object with the least distance from the unknown object (essentially K=1), the K Nearest Neighbor algorithm looks at K>1 nearest neighbors of each class. With KNN, an object is classified by a plurality vote of its neighbors, where the object is matched to the class that appears in greater frequency among its K nearest neighbors. I mentioned that the nearest neighbor algorithm is essentially the same as KNN with K=1 because in this case an object is matched to the class of the single nearest neighbor.
+#### Unknown Object Classification via KNN: Keypress 'k'
+While the euclidean distance classifying method used a nearest neighbor algorithm that returns the object with the least distance from the unknown object (essentially K=1), the K Nearest Neighbor algorithm looks at K>1 nearest neighbors of each class. With KNN, an object is classified by a plurality vote of its neighbors, where the object is matched to the class that appears in greater frequency among its K nearest neighbors. I mentioned that the nearest neighbor algorithm is essentially the same as KNN with K=1 because in this case an object is matched to the class of the single nearest neighbor.
 
 KNN may alternatively be implemented (not via a plurality vote of its neighbors), but by obtaining K nearest neighbors of each object class, computing the sum of distances of each class, then matching the unknown object to the class with the smallest distance sum. In this program, however, it should be noted that the plurality vote of K nearest neighbors was implemented. 
 
@@ -62,7 +63,7 @@ KNN may alternatively be implemented (not via a plurality vote of its neighbors)
 ## Results and Discussion
 
 ### Confusion Matrix
-Row = Classified
+Row = Classified </br>
 Column = Truth
 
 ### Discussion
