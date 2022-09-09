@@ -48,13 +48,13 @@ This function separates the object from the background. By setting pixels in the
 
 #### Morphological Filtering: Keypress 'm'
 This function cleans up the thresholded binary image by using OpenCV's built-in ```cv::morphologyEx```, which executes growing and shrinking (or opening and closing morphological filtering). 
-| Original Image | Morphological Filtering |
+| Original | Morphological Filtering |
 |---|---|
 | <img src="/readme-images/pencil-og.png" width=50%> | <img src="/readme-images/pencil-morph.png" width=50%> |
 
 ### Connected Components Region Segmentation: Keypress 'c'
 This function computes connected components using OpenCV's built-in function, ```cv::connectedComponentsWithStats``` and displays the detected segmented regions by color.
-| Original Image | Connected Components |
+| Original | Connected Components |
 |---|---|
 | <img src="/readme-images/pencil-og.png" width=50%> | <img src="/readme-images/pencil-thresh.png" width=50%> |
 
