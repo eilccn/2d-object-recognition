@@ -1,6 +1,4 @@
 /*
-  Bruce A. Maxwell
-
   Utility functions for reading and writing CSV files with a specific format
 
   Each line of the csv file is a filename in the first column, followed by numeric data for the remaining columns

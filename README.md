@@ -37,11 +37,12 @@ k = classify by using k nearest neighbor (pluarlity vote)
 ## Image Clean-Up and Region Segmentation
 
 ### Image Clean-Up
-#### Thresholding
+#### Thresholding: Keypress 't'
+This function separates the object from the background. 
 
-#### Morphological Filtering
+#### Morphological Filtering: Keypress 'm'
 
-### Connected Components Region Segmentation
+### Connected Components Region Segmentation: Keypress 'c'
 
 
 ## Feature Computation, Training System, and Classification

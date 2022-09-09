@@ -1,9 +1,4 @@
 /*
-Bruce A. Maxwell
-
-CS 5330 Computer Vision
-Spring 2021
-
 CPP functions for reading CSV files with a specific format
 - first column is a string containing a filename or path
 - every other column is a number
