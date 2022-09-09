@@ -40,10 +40,10 @@ k = classify by using k nearest neighbor (pluarlity vote)
 
 ### Image Clean-Up
 #### Thresholding: Keypress 't'
-This function separates the object from the background. 
+This function separates the object from the background. By setting pixels in the image black if the color-channel value is greater than a designated threshold or white if the color-channel falls below the designated threshold.
 
 #### Morphological Filtering: Keypress 'm'
-This function cleans up the thresholded binary image by using built-in OpenCV growing and shrinking functions. 
+This function cleans up the thresholded binary image by using OpenCV's built-in ```cv::morphologyEx```, which executes growing and shrinking (or opening and closing morphological filtering). 
 
 ### Connected Components Region Segmentation: Keypress 'c'
 This function computes connected components using OpenCV's built-in function, ```cv::connectedComponentsWithStats``` and displays the detected segmented regions by color.
