@@ -102,7 +102,7 @@ For this method, **objects are classified in the command line** and users define
 <img src="/readme-images/k-means.png" width="50%">
 
 ## Video Demo
-[<img src="/video_demo/demo-image.png" width="50%">]
+[<img src="/readme-images/demo-image.png" width="50%">]
 
 
 ## Further Notes
