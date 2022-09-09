@@ -96,6 +96,7 @@ While the euclidean distance classifying method used a nearest neighbor algorith
 KNN may alternatively be implemented (not via a plurality vote of its neighbors), but by obtaining K nearest neighbors of each object class, computing the sum of distances of each class, then matching the unknown object to the class with the smallest distance sum. In this program, however, it should be noted that the plurality vote of K nearest neighbors was implemented. 
 
 For this method, **objects are classified in the command line** and users define the value of K that will be used to classify each object.
+
 <img src="/readme-images/k-means.png" width="50%">
 
 ## Video Demo
