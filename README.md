@@ -75,7 +75,7 @@ The 5 features chosen to be extracted for each object include **three central mo
 
 | Original | Minor + Major Axes and Oriented Bounding Box |
 |---|---|
-| <img src="/readme-images/pencil-og.png" width=50%> | <img src="/readme-images/pencil-axes-box.png" width=50%> |
+| <img src="/readme-images/pencil-og.png" width=100%> | <img src="/readme-images/pencil-axes-box.png" width=100%> |
 
 ### Training System: Keypress 'n'
 
