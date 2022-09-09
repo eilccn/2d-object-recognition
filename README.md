@@ -13,7 +13,7 @@ This project aims to recognize 2D objects in real-time in a translation, scale, 
 * **Note:** Every time you need to rebuild the program, the csv file needs to be manually deleted and recreated for it to build correctly.
 * Please see the requirements.txt file for necessary plug-ins
 
-### Keypress Definitions:
+### Keypress Definitions
 ```
 q = quit
 s = save .png of image
@@ -37,6 +37,11 @@ d = classify by computing the scaled euclidean distance
 k = classify by using k nearest neighbor (pluarlity vote)
 ```
 
+### Video Capture Set-Up
+* Install the EpocCam app to your mobile device in order to use it as a webcam 
+* Use a phone tripod or DIY your own set-up to keep your phone in place while you extract object features
+* It is important that your video capture device does not move throughout the entire training process 
+
 ## Image Clean-Up and Region Segmentation
 
 ### Image Clean-Up
@@ -48,15 +53,15 @@ This function separates the object from the background. By setting pixels in the
 
 #### Morphological Filtering: Keypress 'm'
 This function cleans up the thresholded binary image by using OpenCV's built-in ```cv::morphologyEx```, which executes growing and shrinking (or opening and closing morphological filtering). 
-| Original | Morphological Filtering |
+| Thresholding | Morphological Filtering |
 |---|---|
-| <img src="/readme-images/pencil-og.png" width=50%> | <img src="/readme-images/pencil-morph.png" width=50%> |
+| <img src="/readme-images/pencil-thresh.png" width=50%> | <img src="/readme-images/pencil-morph.png" width=50%> |
 
 ### Connected Components Region Segmentation: Keypress 'c'
 This function computes connected components using OpenCV's built-in function, ```cv::connectedComponentsWithStats``` and displays the detected segmented regions by color.
-| Original | Connected Components |
+| Pencil Region | Region Segmentation |
 |---|---|
-| <img src="/readme-images/pencil-og.png" width=50%> | <img src="/readme-images/pencil-thresh.png" width=50%> |
+| <img src="/readme-images/pencil-cc.png" width=50%> | <img src="/readme-images/cc.png" width=50%> |
 
 
 ## Feature Computation, Training System, and Classification
@@ -68,14 +73,22 @@ The built-in OpenCV function ```cv::moments``` was used in order to compute the 
 
 The 5 features chosen to be extracted for each object include **three central moment values (µ11, µ20, and µ02), the percent filled of the oriented bounding box, and the aspect ratio of the oriented bounding box**. These specific features are pushed into a feature vector that is called in as a parameter to this feature computation function. The extracted feature vector is then used in the training mode outlined in _"Training System"_ below. 
 
+| Original | Minor + Major Axes and Oriented Bounding Box |
+|---|---|
+| <img src="/readme-images/pencil-og.png" width=50%> | <img src="/readme-images/pencil-axes-box.png" width=50%> |
+
 ### Training System: Keypress 'n'
 
-Upon a keypress, 5 features: ```{µ11, µ20, µ02, percent filled of the oriented bounding box, aspect ratio of the oriented bounding box}``` will be extracted from an object via the features function described in **"Feature Computation"** above. The user will then be prompted to assign a label to the object by entering a label in the command line. The object's feature vector and its label will then be written together into a csv file that is passed in as a command line argument. The user can then replace the object with a new object and press the keypress again in order to extract the new object's feature vector, assign a label to it, then push the paired information into the csv file. The user can continue adding as many objects as they want to the csv file or database by repeating the process of replacing the object and pressing the keypress. The user may decide to extract multiple feature vectors from the same object by rotating the object with each keypress, and this is advised especially for the object classification via the KNN functionality outlined under **"Classification"** below. **NOTE: It is important that the objects do not change in scale, and it is strongly advised to create a stable video capture set-up in order to ensure more accurate classification results. Please refer to the **"Video Capture"** section for more detailed suggestions.**
+Upon a keypress, 5 features: ```{µ11, µ20, µ02, percent filled of the oriented bounding box, aspect ratio of the oriented bounding box}``` will be extracted from an object via the features function described in **"Feature Computation"** above. The user will then be prompted to assign a label to the object by entering a label in the command line. The object's feature vector and its label will then be written together into a csv file that is passed in as a command line argument. The user can then replace the object with a new object and press the keypress again in order to extract the new object's feature vector, assign a label to it, then push the paired information into the csv file. The user can continue adding as many objects as they want to the csv file or database by repeating the process of replacing the object and pressing the keypress. The user may decide to extract multiple feature vectors from the same object by rotating the object with each keypress, and this is advised especially for the object classification via the KNN functionality outlined under **"Classification"** below. **NOTE: It is important that the objects do not change in scale, and it is strongly advised to create a stable video capture set-up in order to ensure more accurate classification results. Please refer to the **"Video Capture Set-Up"** section for more detailed suggestions.**
 
 ### Classification: Keypresses 'd' and 'k'
 
 #### Unknown Object Classification via Scaled Euclidean Distance: Keypress 'd'
 An unknown object's feature vector is compared with the feature vectors of the known objects in the database through the use of a scaled Euclidean distance metric. The unknown object is identified according to the closest matching feature vector in the object DB (nearest-neighbor recognition). The matched label of the object is displayed on the middle left of the video output.
+
+| Original | Classification |
+|---|---|
+| <img src="/readme-images/camera-og.png" width=50%> | <img src="/readme-images/camera-classify.png" width=50%> |
 
 #### Unknown Object Classification via KNN: Keypress 'k'
 While the euclidean distance classifying method used a nearest neighbor algorithm that returns the object with the least distance from the unknown object (essentially K=1), the K Nearest Neighbor algorithm looks at K>1 nearest neighbors of each class. With KNN, an object is classified by a plurality vote of its neighbors, where the object is matched to the class that appears in greater frequency among its K nearest neighbors. The nearest neighbor algorithm is essentially the same as KNN with K=1 because in this case an object is matched to the class of the single nearest neighbor.
@@ -84,17 +97,11 @@ KNN may alternatively be implemented (not via a plurality vote of its neighbors)
 
 
 ## Video Demo
-[<img src="/video_demo/demo-image.png" width="50%">](https://drive.google.com/file/d/1pK1d6vgmeVoRCaKcsgjpci0UV_i4_DI6/view?usp=sharing)
+[<img src="/video_demo/demo-image.png" width="50%">]
 
 
-## Results and Discussion
-
-### Confusion Matrix
-Row = Classified </br>
-Column = Truth
-
-### Discussion
-As seen in the confusion matrix above, aside from a couple outliers, the program ended up being fairly accurate. The flower was mistaken for a key 1/5 times, the key was mistaken for a flower 1/5 times, and the pin was mistaken for a key 1/5 times. These mismatches make sense because the objects that were mistaken for each other are very similar in size and shape. The pin, on the other hand, is smaller in area than the key by about half, but it often cast a long shadow that was taken into account when extracting its features. As a result, for more accurate results, I would need a more controlled lighting situation. Also, with more than the 3 feature sets I extracted for each object in this particular trial, I would be able to obtain more reliable results.
+## Further Notes
+Objects that were mistaken for each other were very similar in size and shape. Some objects cast shadows that were taken into account when extracting their features. As a result, for more accurate results, it is suggested to prepare a more controlled lighting situation. It is also suggested to extract multiple feature sets of each object in various rotations and translations in order to ensure more improved accuracy.
 
 
 ###### Wiki Report
