@@ -85,7 +85,7 @@ Row = Classified </br>
 Column = Truth
 
 ### Discussion
-As seen in the confusion matrix above, aside from a couple outliers, the program ended up being fairly accurate. The flower was mistaken for a key 1/5 times, the key was mistaken for a flower 1/5 times, the pin was mistaken for a key 1/5 times, and the steps was mistaken for a star 2/5 times. These mismatches make sense because the objects that were mistaken for each other are very similar in size and shape. The pin, on the other hand, is smaller in area than the key by about half, but it often cast a long shadow that was taken into account when extracting its features. As a result, for more accurate results, I would need a more controlled lighting situation. Also, with more than the 3 feature sets I extracted for each object in this particular trial, I would be able to obtain more reliable results.
+As seen in the confusion matrix above, aside from a couple outliers, the program ended up being fairly accurate. The flower was mistaken for a key 1/5 times, the key was mistaken for a flower 1/5 times, and the pin was mistaken for a key 1/5 times. These mismatches make sense because the objects that were mistaken for each other are very similar in size and shape. The pin, on the other hand, is smaller in area than the key by about half, but it often cast a long shadow that was taken into account when extracting its features. As a result, for more accurate results, I would need a more controlled lighting situation. Also, with more than the 3 feature sets I extracted for each object in this particular trial, I would be able to obtain more reliable results.
 
 
 ###### Wiki Report
