@@ -104,7 +104,7 @@ For this method, **objects are classified in the command line** and users define
 
 
 ## Further Notes
-Objects that were mistaken for each other were very similar in size and shape. Some objects cast shadows that were taken into account when extracting their features. As a result, for more accurate results, it is suggested to prepare a more controlled lighting situation. It is also suggested to extract multiple feature sets of each object in various rotations and translations in order to ensure more improved accuracy.
+Objects that were mistaken for each other were very similar in size and shape. Some objects cast shadows that were taken into account when extracting their features. As a result, for more accurate results, it is suggested to prepare a more controlled lighting situation and to follow the previous suggestions for video capture set-up. It is also suggested to extract multiple feature sets of each object in various rotations and translations in order to ensure improved accuracy.
 
 
 ###### Wiki Report
